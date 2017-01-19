@@ -1,0 +1,48 @@
+apply plugin: 'maven'
+apply plugin: 'war'
+apply plugin: 'jetty'
+webAppDirName = 'webapp'
+repositories {
+      maven { url "http://repo.spring.io/release" }
+    mavenCentral()
+}
+ext{
+      springframework_version = "4.3.2.RELEASE"
+      slf4j_version = "1.7.19"
+      commons_dbcp_version = "1.4"
+}
+dependencies {
+    compile (
+            "org.springframework:spring-context:${springframework_version}",
+            "org.springframework:spring-context-support:${springframework_version}",
+            "org.springframework:spring-jdbc:${springframework_version}",
+            "org.springframework:spring-tx:${springframework_version}",
+            "org.springframework:spring-orm:${springframework_version}",
+            "org.springframework:spring-webmvc:${springframework_version}",
+            "commons-dbcp:commons-dbcp:${commons_dbcp_version}",
+			"javax.servlet:javax.servlet-api:3.1-b07",
+			"org.slf4j:slf4j-log4j12:${slf4j_version}",
+			"org.slf4j:slf4j-api:${slf4j_version}",
+			"org.slf4j:jcl-over-slf4j:${slf4j_version}",
+			"log4j:log4j:1.2.15",
+			"mysql:mysql-connector-java:5.1.38",
+			"javax.servlet:jstl:1.2"
+    )
+    compile ("org.springframework:spring-core:${springframework_version}"){
+            exclude group: 'commons-logging', module: 'commons-logging'
+    }
+    compile group: 'org.aspectj', name: 'aspectjweaver', version: '1.8.9'
+    compile group: 'org.apache.tomcat', name: 'tomcat-catalina', version: '8.0.39'
+    compile group: 'org.quartz-scheduler', name: 'quartz', version: '2.2.1'
+    compile group: 'net.sf.json-lib', name: 'json-lib', version: '2.4'
+    
+    testCompile( 
+                "org.springframework:spring-test:${springframework_version}", 
+                "junit:junit:4.12" 
+    )
+    providedCompile(
+      "org.apache.geronimo.specs:geronimo-servlet_3.0_spec:1.0",
+      "org.apache.geronimo.specs:geronimo-jsp_2.1_spec:1.0.1"
+    )
+   
+}

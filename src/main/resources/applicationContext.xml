@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:ctx="http://www.springframework.org/schema/context"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:cache="http://www.springframework.org/schema/cache"
+	xmlns:task="http://www.springframework.org/schema/task"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans
+						http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+						http://www.springframework.org/schema/context
+						http://www.springframework.org/schema/context/spring-context-4.0.xsd
+						http://www.springframework.org/schema/tx
+						http://www.springframework.org/schema/tx/spring-tx-4.0.xsd
+						http://www.springframework.org/schema/aop
+    					http://www.springframework.org/schema/aop/spring-aop-4.0.xsd			
+    					http://www.springframework.org/schema/cache
+    					http://www.springframework.org/schema/cache/spring-cache-4.0.xsd
+    					http://www.springframework.org/schema/task
+    					http://www.springframework.org/schema/task/spring-task-3.2.xsd">
+    					
+	<ctx:component-scan base-package="com.melonskin.wxgzh.quartz, com.melonskin.web.data, com.melonskin.web.dao, com.melonskin.web.service"/>
+	
+	<!-- 任务调度 -->
+	<task:annotation-driven/>
+	
+	<!-- 定义使用DBCP实现数据源 -->
+	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource"
+		destroy-method="close"
+		p:driverClassName="com.mysql.jdbc.Driver"
+		p:url="jdbc:mysql://192.168.111.128:3306/sampledb"
+		p:username="mysql"
+		p:password="123456"/>
+	
+	<bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate"
+		p:dataSource-ref="dataSource"/>
+	
+	<!-- 配置事务管理器 -->
+	<bean id="transactionManager"
+		class="org.springframework.jdbc.datasource.DataSourceTransactionManager"
+		p:dataSource-ref="dataSource"/>
+	
+	<!-- 通过AOP配置提高事务增强，让service包下的所有bean的所有方法拥有事务 -->
+	<aop:config proxy-target-class="true">
+		<aop:pointcut id="serviceMethod"
+			expression="execution(* com.melonskin.web.service..*(..))"/>
+		<aop:advisor pointcut-ref="serviceMethod" advice-ref="txAdvice"/>
+	</aop:config>
+	<tx:advice id="txAdvice" transaction-manager="transactionManager">
+		<tx:attributes>
+			<tx:method name="*"/>
+		</tx:attributes>
+	</tx:advice>
+	
+	<bean id="accessToken" class="com.melonskin.web.data.AccessToken"
+		p:appid="wxd30d696d68681437"
+		p:appsecret="b6579064add609d951fc0d575ba55b20"
+		/>
+	<!-- 作为全局对象，存储token信息 -->
+	<bean id="token" class="com.melonskin.web.data.Token"/>
+	
+	
+	
+	
+	
+	
+	
+	
+	<!-- ============================ 2小时取一次 access_token  ======= start ====================== -->
+	<!-- 使用MethodInvokingJobDetailFactoryBean，任务类可以不实现Job接口，通过targetMethod指定调用方法 -->
+	<!-- 定义目标bean和bean中的方法 -->  
+    <!--<bean id="WxAccessToken" class="com.melonskin.web.quartz.WxAccessToken"/>  
+    <bean id="WxAccessTokenMethod" class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">  
+	    <property name="targetObject">  
+	        <ref bean="WxAccessToken"/>  
+	    </property>  
+	    <property name="targetMethod">
+	        <value>execute</value>  
+	    </property>
+	</bean>  -->
+	  
+	<!-- ======================== 调度触发器 ======================== -->  
+	<!--<bean id="CronTriggerBean" class="org.springframework.scheduling.quartz.CronTriggerFactoryBean">  
+	    <property name="jobDetail" ref="WxAccessTokenMethod"></property>  
+	    <property name="cronExpression" value="0 0 */2 * * ?"></property>  
+	</bean>  -->
+	  
+	<!-- ======================== 调度工厂 ======================== -->  
+	<!--<bean id="SpringJobSchedulerFactoryBean" class="org.springframework.scheduling.quartz.SchedulerFactoryBean">  
+	    <property name="triggers">  
+	        <list>  
+	            <ref bean="CronTriggerBean"/>  
+	        </list>  
+	    </property>  
+	</bean>    -->
+	<!-- ============================ 2小时取一次 access_token  ======= end ====================== -->
+	
+</beans>
