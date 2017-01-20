@@ -1,4 +1,4 @@
-package com.melonskin.web.data;
+package com.melonskin.data.wxapp;
 
 /**
  * 微信返回的token信息

@@ -1,4 +1,4 @@
-package com.melonskin.web.data;
+package com.melonskin.data;
 
 import java.io.Serializable;
 import java.util.Date;

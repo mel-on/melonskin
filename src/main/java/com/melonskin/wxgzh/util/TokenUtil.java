@@ -15,7 +15,7 @@ import javax.net.ssl.TrustManager;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.melonskin.web.data.Token;
+import com.melonskin.data.wxapp.Token;
 
 import net.sf.json.JSONException;
 import net.sf.json.JSONObject;

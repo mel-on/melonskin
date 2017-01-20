@@ -1,4 +1,4 @@
-package com.melonskin.web.data;
+package com.melonskin.data.wxapp;
 
 /**
  * 请求获取access_token带的参数

@@ -8,8 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
-import com.melonskin.web.data.AccessToken;
-import com.melonskin.web.data.Token;
+import com.melonskin.data.wxapp.AccessToken;
+import com.melonskin.data.wxapp.Token;
 import com.melonskin.wxgzh.util.TokenUtil;
 
 /**

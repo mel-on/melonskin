@@ -9,9 +9,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.melonskin.data.User;
+import com.melonskin.data.wxapp.Token;
 import com.melonskin.web.bean.LoginCommand;
-import com.melonskin.web.data.Token;
-import com.melonskin.web.data.User;
 import com.melonskin.web.service.UserService;
 
 @Controller

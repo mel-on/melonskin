@@ -3,10 +3,10 @@ package com.melonskin.web.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.melonskin.data.LoginLog;
+import com.melonskin.data.User;
 import com.melonskin.web.dao.LoginLogDao;
 import com.melonskin.web.dao.UserDao;
-import com.melonskin.web.data.LoginLog;
-import com.melonskin.web.data.User;
 
 @Service
 public class UserService {
