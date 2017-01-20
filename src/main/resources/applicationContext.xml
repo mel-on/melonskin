@@ -20,7 +20,7 @@
     					http://www.springframework.org/schema/task
     					http://www.springframework.org/schema/task/spring-task-3.2.xsd">
     					
-	<ctx:component-scan base-package="com.melonskin.wxgzh.quartz, com.melonskin.data, com.melonskin.web.dao, com.melonskin.web.service"/>
+	<ctx:component-scan base-package="com.ximelon.melonskin.wxgzh.quartz, com.ximelon.melonskin.data, com.ximelon.melonskin.web.dao, com.ximelon.melonskin.web.service"/>
 	
 	<!-- 任务调度 -->
 	<task:annotation-driven/>
@@ -53,12 +53,12 @@
 		</tx:attributes>
 	</tx:advice>
 	
-	<bean id="accessToken" class="com.melonskin.data.wxapp.AccessToken"
+	<bean id="accessToken" class="com.ximelon.melonskin.data.wxapp.AccessToken"
 		p:appid="wxd30d696d68681437"
 		p:appsecret="b6579064add609d951fc0d575ba55b20"
 		/>
 	<!-- 作为全局对象，存储token信息 -->
-	<bean id="token" class="com.melonskin.data.wxapp.Token"/>
+	<bean id="token" class="com.ximelon.melonskin.data.wxapp.Token"/>
 	
 	
 	
