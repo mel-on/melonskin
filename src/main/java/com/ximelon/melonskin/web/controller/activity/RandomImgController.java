@@ -8,7 +8,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 @RequestMapping("/promImg")
-public class PromRandomImgController {
+public class RandomImgController {
 	
 	@RequestMapping("/toImg.html")
 	public ModelAndView toRandomImg(){
