@@ -1,4 +1,4 @@
-package com.ximelon.melonskin.web.controller.promotion;
+package com.ximelon.melonskin.web.controller.activity;
 
 import java.util.Random;
 
